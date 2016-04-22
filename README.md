@@ -9,6 +9,8 @@ The original challenge was to be able to reproduce the ESXi Appliances provided 
 
 * [Packer](http://packer.io) > 0.8 (PS: My packer is built from source with some PR included [PR 3321](https://github.com/mitchellh/packer/pull/3321]) | [PR 3050](https://github.com/mitchellh/packer/pull/3050) | and a personal fix for ovftool)
 * VMware vSphere ESXi >= 5.5 (tested on 6.0 U2)
+* Firewall rules entries for VNC: [vnc_config_5_1.sh](https://gist.githubusercontent.com/jasonberanek/4670943/raw/0749993b9043b581cd41c8f8b9886f93153f9b3f/vnc_config_5_1.sh) (This works on 6.0 U2)
+
 
 ## Build artifacts
 
