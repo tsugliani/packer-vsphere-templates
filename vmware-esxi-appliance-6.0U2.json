@@ -1,0 +1,77 @@
+{
+  "variables": {
+    "version": "1.0"
+  },
+  "builders": [
+    {
+      "name": "vmware-esxi",
+      "vm_name": "vmware-esxi",
+      "vmdk_name": "vmware-esxi-disk0",
+      "type": "vmware-iso",
+      "Version": 10,
+      "communicator": "ssh",
+      "ssh_pty": "true",
+      "headless": false,
+      "disk_size": 16384,
+      "disk_additional_size": ["2000", "10000"],
+      "guest_os_type": "vmkernel6",
+      "iso_url": "{{user `iso_file`}}",
+      "iso_checksum": "{{user `iso_sha1sum`}}",
+      "iso_checksum_type": "sha1",
+      "shutdown_command": "esxcli system maintenanceMode set -e true -t 0 ; esxcli system shutdown poweroff -d 10 -r 'Packer Shutdown' ; esxcli system maintenanceMode set -e false -t 0",
+      "remote_host": "{{user `packer_remote_host`}}",
+      "remote_datastore": "{{user `packer_remote_datastore`}}",
+      "remote_username": "{{user `packer_remote_username`}}",
+      "remote_password": "{{user `packer_remote_password`}}",
+      "remote_type": "esx5",
+      "ssh_username": "root",
+      "ssh_password": "{{user `root_password`}}",
+      "ssh_wait_timeout": "60m",
+      "format": "ovf",
+      "http_directory": "scripts",
+      "boot_wait": "5s",
+      "vmx_data": {
+        "memsize": "6144",
+        "numvcpus": "2",
+        "vhv.enable": "TRUE",
+
+        "ethernet0.networkName": "{{user `packer_remote_network`}}",
+        "ethernet0.present": "TRUE",
+        "ethernet0.startConnected": "TRUE",
+        "ethernet0.virtualDev": "vmxnet3",
+        "ethernet0.addressType": "generated",
+        "ethernet0.wakeOnPcktRcv": "FALSE",
+
+        "scsi0:0.virtualSSD": "0",
+        "scsi0:1.virtualSSD": "1",
+        "scsi0:2.virtualSSD": "1"
+      },
+      "vmx_data_post": {
+        "ethernet1.networkName": "{{user `packer_remote_network`}}",
+        "ethernet1.present": "TRUE",
+        "ethernet1.startConnected": "TRUE",
+        "ethernet1.virtualDev": "vmxnet3",
+        "ethernet1.addressType": "generated",
+        "ethernet1.wakeOnPcktRcv": "FALSE"
+      },
+      "boot_command": [
+        "<enter><wait>O<wait> ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/esxi-kickstart.cfg<enter>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "scripts/esxi-settings.sh"
+    },
+    {
+      "type": "file",
+      "source": "scripts/esxi-vnic-fix.sh",
+      "destination": "/etc/rc.local.d/local.sh"
+    },
+    {
+      "type": "shell",
+      "script": "scripts/esxi-cloning_configuration.sh"
+    }
+  ]
+}
