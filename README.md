@@ -1,7 +1,7 @@
 # VMware [ESXi](https://www.vmware.com/products/esxi-and-esx/overview) [Packer](http://packer.io) templates
-This stuff is based on a mix of the following colleague work:
-- https://github.com/frapposelli/esxi-packer-templates (@frapposelli)
-- https://github.com/sdorsett/packer-templates (@sdorsett)
+This stuff is based on a mix of the following friends work:
+- https://github.com/frapposelli/esxi-packer-templates by  [@frapposelli](https://twitter.com/fabiorapposelli)
+- https://github.com/sdorsett/packer-templates by  [@sdorsett](https://twitter.com/standorsett)
 
 The original challenge was to be able to reproduce the ESXi Appliances provided by William Lam on his blog [virtuallyGhetto](http://www.virtuallyghetto.com/2015/12/deploying-nested-esxi-is-even-easier-now-with-the-esxi-virtual-appliance.html)
 
@@ -17,7 +17,7 @@ Check the ```vmware-esxi-appliance-6.0U2.sh``` convenience builder script.
 
   * ```iso_file```: which iso file your are leveraging (tested so far only with VMware ESXi 6.0 U2)
   * ```iso_sha1sum```: the sha1sum corresponding to the ```iso_file```
-  * ```root_password```: The password to leverage for SSH communications from packer (VMware1! is default in the ks script)
+  * ```root_password```: The password to leverage for SSH communications from packer (```VMware1!``` is default in the ks script)
 
   * ```packer_remote_host```: IP/DNS of you VMware ESXi host used for building the template
   * ```packer_remote_datastore```: Datastore to leverage (Note: VSAN will not work as mkdir doesn't work on it - https://kb.vmware.com/kb/2119776)
