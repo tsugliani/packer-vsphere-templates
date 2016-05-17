@@ -4,11 +4,11 @@
   },
   "builders": [
     {
-      "name": "vmware-esxi",
-      "vm_name": "vmware-esxi",
-      "vmdk_name": "vmware-esxi-disk0",
+      "name": "VMware-ESXi-Appliance-6.0U2",
+      "vm_name": "VMware-ESXi-Appliance-6.0U2",
+      "vmdk_name": "VMware-ESXi-Appliance-6.0U2-disk0",
       "type": "vmware-iso",
-      "Version": 10,
+      "version": 10,
       "communicator": "ssh",
       "ssh_pty": "true",
       "headless": false,
@@ -25,10 +25,10 @@
       "remote_password": "{{user `packer_remote_password`}}",
       "remote_type": "esx5",
       "ssh_username": "root",
-      "ssh_password": "{{user `root_password`}}",
+      "ssh_password": "VMware1!",
       "ssh_wait_timeout": "60m",
       "format": "ovf",
-      "http_directory": "scripts",
+      "http_directory": "scripts/VMwareESXi",
       "boot_wait": "5s",
       "vmx_data": {
         "memsize": "6144",
@@ -62,16 +62,16 @@
   "provisioners": [
     {
       "type": "shell",
-      "script": "scripts/esxi-settings.sh"
+      "script": "scripts/VMwareESXi/esxi-settings.sh"
     },
     {
       "type": "file",
-      "source": "scripts/esxi-vnic-fix.sh",
+      "source": "scripts/VMwareESXi/esxi-vnic-fix.sh",
       "destination": "/etc/rc.local.d/local.sh"
     },
     {
       "type": "shell",
-      "script": "scripts/esxi-cloning_configuration.sh"
+      "script": "scripts/VMwareESXi/esxi-cloning_configuration.sh"
     }
   ]
 }

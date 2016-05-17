@@ -7,7 +7,10 @@ The original challenge was to be able to reproduce the ESXi Appliances provided 
 
 ## Prerequisites
 
-* [Packer](http://packer.io) > 0.8 (PS: My packer is built from source with some PR included [PR 3321](https://github.com/mitchellh/packer/pull/3321]) | [PR 3050](https://github.com/mitchellh/packer/pull/3050) | and a personal fix for ovftool)
+* [Packer](http://packer.io) > 0.8 (PS: My packer releases are available [HERE](https://github.com/tsugliani/packer/releases))
+  * [PR 3321](https://github.com/mitchellh/packer/pull/3321])
+  * [Misc Personal Fix](https://github.com/tsugliani/packer/commit/9839a009ce6835f6bedcfa31935ad38110400468)
+
 * VMware vSphere ESXi >= 5.5 (tested on 6.0 U2)
 * Firewall rules entries for VNC: [vnc_config_5_1.sh](https://gist.githubusercontent.com/jasonberanek/4670943/raw/0749993b9043b581cd41c8f8b9886f93153f9b3f/vnc_config_5_1.sh) (This works on 6.0 U2)
 
@@ -19,7 +22,6 @@ Check the ```vmware-esxi-appliance-6.0U2.sh``` convenience builder script.
 
   * ```iso_file```: which iso file your are leveraging (tested so far only with VMware ESXi 6.0 U2)
   * ```iso_sha1sum```: the sha1sum corresponding to the ```iso_file```
-  * ```root_password```: The password to leverage for SSH communications from packer (```VMware1!``` is default in the ks script)
 
   * ```packer_remote_host```: IP/DNS of you VMware ESXi host used for building the template
   * ```packer_remote_datastore```: Datastore to leverage (Note: VSAN will not work as mkdir doesn't work on it - https://kb.vmware.com/kb/2119776)
@@ -33,7 +35,6 @@ Sample usage in ```vmware-esxi-appliance-6.0U2.sh```
 packer build \
        -var 'iso_file=iso/VMware-VMvisor-Installer-6.0.0.update02-3620759.x86_64.iso' \
        -var 'iso_sha1sum=5a93f457980d18f7061c8b550c509682070cadc7' \
-       -var 'root_password=VMware1!' \
        -var 'packer_remote_host=192.168.0.251' \
        -var 'packer_remote_datastore=NFS_DATASTORE' \
        -var 'packer_remote_network=VM Network' \
