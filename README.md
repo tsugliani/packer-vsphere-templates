@@ -5,6 +5,8 @@ This stuff is based on a mix of the following friends work:
 
 The original challenge was to be able to reproduce the ESXi Appliances provided by William Lam on his blog [virtuallyGhetto](http://www.virtuallyghetto.com/2015/12/deploying-nested-esxi-is-even-easier-now-with-the-esxi-virtual-appliance.html)
 
+That said, I intend to provide some custom Linux and Windows templates as well.
+
 ## Prerequisites
 
 * [Packer](http://packer.io) > 0.8 (PS: My packer releases are available [HERE](https://github.com/tsugliani/packer/releases))
@@ -42,6 +44,8 @@ packer build \
        -var 'packer_remote_password=VMware1!' \
        vmware-esxi-appliance-6.0U2.json
 ```
+
+Note: All provided packer templates use *VMware1!* as the root/administrator password.
 
 ## Legal
 

@@ -67,7 +67,8 @@
         "scripts/Linux/Debian/update.sh",
         "scripts/Linux/Debian/sshd.sh",
         "scripts/Linux/Debian/networking.sh",
-        "scripts/Linux/Debian/filesystem.sh"
+        "scripts/Linux/Debian/filesystem.sh",
+        "scripts/Linux/Debian/cleanup.sh"
       ]
     }
   ]

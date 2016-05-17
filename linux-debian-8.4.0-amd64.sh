@@ -1,8 +1,6 @@
 #!/bin/sh
 
-
-packer build \
-       -var 'root_password=VMware1!' \
+PACKER_LOG=1 packer build \
        -var 'packer_remote_host=192.168.0.251' \
        -var 'packer_remote_datastore=NFS_DATASTORE' \
        -var 'packer_remote_network=VM Network' \
