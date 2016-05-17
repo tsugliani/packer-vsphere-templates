@@ -43,7 +43,7 @@
       "ssh_password": "VMware1!",
       "ssh_port": 22,
       "ssh_wait_timeout": "60m",
-      "format": "ovf",
+      "format": "ova",
       "shutdown_command": "/sbin/shutdown -Ph now",
       "shutdown_timeout": "10s",
       "vm_name": "{{ user `PACKER_BOX_NAME` }}",
@@ -68,6 +68,7 @@
         "scripts/Linux/Debian/sshd.sh",
         "scripts/Linux/Debian/networking.sh",
         "scripts/Linux/Debian/filesystem.sh",
+        "scripts/Linux/Debian/open-vm-tools.sh",
         "scripts/Linux/Debian/cleanup.sh"
       ]
     }

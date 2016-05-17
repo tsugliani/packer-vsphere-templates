@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Clean up
-# apt-get -y --purge remove linux-headers-$(uname -r) build-essential
+apt-get -y --purge remove linux-headers-$(uname -r) build-essential
 apt-get -y --purge autoremove
 apt-get -y purge $(dpkg --list | grep '^rc' | awk '{print $2}')
 apt-get -y purge $(dpkg --list | egrep 'linux-image-[0-9]' | awk '{print $3,$2}' | sort -nr | tail -n +2 | grep -v $(uname -r) | awk '{ print $2}')
@@ -17,10 +17,6 @@ dpkg --list | awk '{ print $2 }' | grep -- '-dev$' | xargs apt-get -y purge
 
 # delete X11 libraries
 apt-get -y purge libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6
-
-
-# delete oddities
-apt-get -y purge popularity-contest
 
 # remove unused stuff
 apt-get -y autoremove
