@@ -1,0 +1,59 @@
+{
+  "variables": {
+    "PACKER_OS_FLAVOUR": "centos",
+    "PACKER_BOX_NAME": "centos-6.7-amd64"
+  },
+  "builders": [
+    {
+      "name": "{{ user `PACKER_BOX_NAME` }}",
+      "vm_name": "{{ user `PACKER_BOX_NAME` }}",
+      "vmdk_name": "{{ user `PACKER_BOX_NAME` }}-disk0",
+      "type": "vmware-iso",
+      "communicator": "ssh",
+      "ssh_pty": "true",
+      "headless": false,
+      "disk_size": 16384,
+      "guest_os_type": "rhel6-64",
+      "iso_url": "http://centos.mirrors.ovh.net/ftp.centos.org/6.7/isos/x86_64/CentOS-6.7-x86_64-minimal.iso",
+      "iso_checksum": "2ed5ea551dffc3e4b82847b3cee1f6cd748e8071",
+      "iso_checksum_type": "sha1",
+      "shutdown_command": "/sbin/shutdown -Ph now",
+
+      "remote_host": "{{ user `packer_remote_host` }}",
+      "remote_datastore": "{{ user `packer_remote_datastore` }}",
+      "remote_username": "{{ user `packer_remote_username` }}",
+      "remote_password": "{{ user `packer_remote_password` }}",
+      "remote_type": "esx5",
+      "format": "ova",
+      "ssh_username": "root",
+      "ssh_password": "VMware1!",
+      "ssh_wait_timeout": "60m",
+
+      "http_directory": "scripts/Linux/CentOS",
+      "boot_wait": "5s",
+      "vmx_data": {
+        "memsize": "2048",
+        "numvcpus": "2",
+        "ethernet0.networkName": "{{ user `packer_remote_network` }}",
+        "ethernet0.present": "TRUE",
+        "ethernet0.startConnected": "TRUE",
+        "ethernet0.virtualDev": "vmxnet3",
+        "ethernet0.addressType": "generated",
+        "ethernet0.generatedAddressOffset": "0",
+        "ethernet0.wakeOnPcktRcv": "FALSE"
+      },
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-kickstart-6.7.cfg<enter><wait>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/Linux/CentOS/update.sh",
+        "scripts/Linux/CentOS/cleanup.sh"
+      ]
+    }
+  ]
+}
