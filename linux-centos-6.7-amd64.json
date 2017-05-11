@@ -1,7 +1,7 @@
 {
   "variables": {
     "PACKER_OS_FLAVOUR": "centos",
-    "PACKER_BOX_NAME": "centos-6.7-amd64"
+    "PACKER_BOX_NAME": "centos-6.9-amd64"
   },
   "builders": [
     {
@@ -14,8 +14,8 @@
       "headless": false,
       "disk_size": 16384,
       "guest_os_type": "rhel6-64",
-      "iso_url": "http://centos.mirrors.ovh.net/ftp.centos.org/6.7/isos/x86_64/CentOS-6.7-x86_64-minimal.iso",
-      "iso_checksum": "2ed5ea551dffc3e4b82847b3cee1f6cd748e8071",
+      "iso_url": "http://centos.mirrors.ovh.net/ftp.centos.org/6.9/isos/x86_64/CentOS-6.9-x86_64-minimal.iso",
+      "iso_checksum": "b23d4d996d2cb5b370120588d5ea18a9cfba7881",
       "iso_checksum_type": "sha1",
       "shutdown_command": "/sbin/shutdown -Ph now",
 
